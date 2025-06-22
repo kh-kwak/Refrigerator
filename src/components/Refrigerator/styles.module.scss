@@ -1,0 +1,22 @@
+.wrap {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  font-size: 12px;
+}
+
+.top {
+  display: flex;
+  margin-top: 10px;
+  border-bottom: 5px solid #333;
+  background-color: #e8e4f5;
+}
+
+.bottom {
+  display: flex;
+  background-color: #f0f0f0;
+}
