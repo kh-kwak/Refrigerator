@@ -1,8 +1,9 @@
+import { useState } from "react";
 import classNames from "classnames/bind";
 
+import type { Door } from "../../constants/door";
+
 import styles from "./styles.module.scss";
-import type { Door } from "../Refrigerator/Refrigerator";
-import { useState } from "react";
 
 const cx = classNames.bind(styles);
 

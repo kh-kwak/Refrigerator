@@ -1,6 +1,11 @@
 import classNames from "classnames/bind";
 
 import useLocalStorage from "../../hooks/useLocalStorage";
+import {
+  initialDoorStates,
+  type Door,
+  type DoorStates,
+} from "../../constants/door";
 
 import { Door as DoorComponent } from "../Door/Door";
 import Input from "../Input/Input";
@@ -8,39 +13,6 @@ import Input from "../Input/Input";
 import styles from "./styles.module.scss";
 
 const cx = classNames.bind(styles);
-
-export type Door =
-  | "left-top-door"
-  | "right-top-door"
-  | "top-inner-1"
-  | "top-inner-2"
-  | "top-inner-3"
-  | "left-bottom-door"
-  | "right-bottom-door"
-  | "left-bottom-inner-1"
-  | "left-bottom-inner-2"
-  | "left-bottom-inner-3"
-  | "right-bottom-inner-1"
-  | "right-bottom-inner-2"
-  | "right-bottom-inner-3";
-
-type DoorStates = Record<Door, string[]>;
-
-const initialDoorStates: DoorStates = {
-  "left-top-door": [],
-  "right-top-door": [],
-  "top-inner-1": [],
-  "top-inner-2": [],
-  "top-inner-3": [],
-  "left-bottom-door": [],
-  "right-bottom-door": [],
-  "left-bottom-inner-1": [],
-  "left-bottom-inner-2": [],
-  "left-bottom-inner-3": [],
-  "right-bottom-inner-1": [],
-  "right-bottom-inner-2": [],
-  "right-bottom-inner-3": [],
-};
 
 function Refrigerator() {
   // 왼쪽 위 문쪽
@@ -77,23 +49,21 @@ function Refrigerator() {
       <div className={cx("top")}>
         <DoorComponent
           type="outer"
-          floor1={doorStates["left-top-door"]}
-          deleteType="left-top-door"
+          doorType="left-top-door"
+          doorStates={doorStates}
           deleteItem={deleteItem}
         />
         <DoorComponent
           type="inner"
           size="full"
-          floor3={doorStates["top-inner-3"]}
-          floor2={doorStates["top-inner-2"]}
-          floor1={doorStates["top-inner-1"]}
-          deleteType="top-inner"
+          doorType="top-inner"
+          doorStates={doorStates}
           deleteItem={deleteItem}
         />
         <DoorComponent
           type="outer"
-          floor1={doorStates["right-top-door"]}
-          deleteType="right-top-door"
+          doorType="right-top-door"
+          doorStates={doorStates}
           deleteItem={deleteItem}
         />
       </div>
@@ -101,30 +71,26 @@ function Refrigerator() {
       <div className={cx("bottom")}>
         <DoorComponent
           type="outer"
-          floor1={doorStates["left-bottom-door"]}
-          deleteType="left-bottom-door"
+          doorType="left-bottom-door"
+          doorStates={doorStates}
           deleteItem={deleteItem}
         />
         <DoorComponent
           type="inner"
-          floor3={doorStates["left-bottom-inner-3"]}
-          floor2={doorStates["left-bottom-inner-2"]}
-          floor1={doorStates["left-bottom-inner-1"]}
-          deleteType="left-bottom-inner"
+          doorType="left-bottom-inner"
+          doorStates={doorStates}
           deleteItem={deleteItem}
         />
         <DoorComponent
           type="inner"
-          floor3={doorStates["right-bottom-inner-3"]}
-          floor2={doorStates["right-bottom-inner-2"]}
-          floor1={doorStates["right-bottom-inner-1"]}
-          deleteType="right-bottom-inner"
+          doorType="right-bottom-inner"
+          doorStates={doorStates}
           deleteItem={deleteItem}
         />
         <DoorComponent
           type="outer"
-          floor1={doorStates["right-bottom-door"]}
-          deleteType="right-bottom-door"
+          doorType="right-bottom-door"
+          doorStates={doorStates}
           deleteItem={deleteItem}
         />
       </div>

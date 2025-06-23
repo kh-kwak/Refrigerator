@@ -1,38 +1,50 @@
 import classNames from "classnames/bind";
 
+import {
+  initialDoorStates,
+  type Door,
+  type DoorStates,
+} from "../../constants/door";
+
 import styles from "./styles.module.scss";
-import type { Door } from "../Refrigerator/Refrigerator";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const cx = classNames.bind(styles);
 
 interface Props {
-  type: "inner" | "outer";
-  size?: "half" | "full";
-  floor1: string[];
-  floor2?: string[];
-  floor3?: string[];
-  deleteType: string;
+  doorType: string;
+  doorStates: DoorStates;
   deleteItem: (doorType: Door, item: string) => void;
 }
 
+interface InnerDoorProps extends Props {
+  type: "inner";
+  size?: "half" | "full";
+}
+
+interface OuterDoorProps extends Props {
+  type: "outer";
+}
+
 export function Door({
-  type,
-  size = "half",
-  floor1,
-  floor2,
-  floor3,
-  deleteType,
+  doorType,
+  doorStates,
   deleteItem,
-}: Props) {
+  ...props
+}: InnerDoorProps | OuterDoorProps) {
+  const { type } = props;
+
   if (type === "inner") {
+    const { size = "half" } = props;
+
     return (
       <div className={cx("wrap", `size-${size}`)}>
         <div className={cx("floor")}>
-          {floor3?.map((item, index) => (
+          {doorStates[`${doorType}-3` as Door].map((item, index) => (
             <button
               key={`${item}-${index}`}
               type="button"
-              onClick={() => deleteItem(`${deleteType}-3` as Door, item)}
+              onClick={() => deleteItem(`${doorType}-3` as Door, item)}
               className={cx("button")}
             >
               {item}
@@ -40,11 +52,11 @@ export function Door({
           ))}
         </div>
         <div className={cx("floor")}>
-          {floor2?.map((item, index) => (
+          {doorStates[`${doorType}-2` as Door].map((item, index) => (
             <button
               key={`${item}-${index}`}
               type="button"
-              onClick={() => deleteItem(`${deleteType}-2` as Door, item)}
+              onClick={() => deleteItem(`${doorType}-2` as Door, item)}
               className={cx("button")}
             >
               {item}
@@ -52,11 +64,11 @@ export function Door({
           ))}
         </div>
         <div className={cx("floor")}>
-          {floor1.map((item, index) => (
+          {doorStates[`${doorType}-1` as Door].map((item, index) => (
             <button
               key={`${item}-${index}`}
               type="button"
-              onClick={() => deleteItem(`${deleteType}-1` as Door, item)}
+              onClick={() => deleteItem(`${doorType}-1` as Door, item)}
               className={cx("button")}
             >
               {item}
@@ -68,13 +80,13 @@ export function Door({
   }
 
   return (
-    <div className={cx("wrap", `size-${size}`)}>
+    <div className={cx("wrap")}>
       <div className={cx("floor")}>
-        {floor1.map((item, index) => (
+        {doorStates[`${doorType}` as Door].map((item, index) => (
           <button
             key={`${item}-${index}`}
             type="button"
-            onClick={() => deleteItem(`${deleteType}` as Door, item)}
+            onClick={() => deleteItem(`${doorType}` as Door, item)}
             className={cx("button")}
           >
             {item}
